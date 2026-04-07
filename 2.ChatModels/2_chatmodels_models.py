@@ -7,3 +7,6 @@ load_dotenv()
 groq_model=ChatGroq(model="llama-3.3-70b-versatile",temperature=0,max_tokens=100,timeout=None,max_retries=2)
 response = groq_model.invoke("What is the capital of France?")
 print(response.content)
+
+
+# free api

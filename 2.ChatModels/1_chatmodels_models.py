@@ -23,4 +23,9 @@ Maximum randomness (wild ideas, brainstorming) 1.5+
 
 '''
 max_completion_tokens is a parameter that limits the maximum number of tokens in the generated response. It helps control the length of the output and can prevent excessively long responses.
-'''
+'''  
+
+
+
+
+# paid api
