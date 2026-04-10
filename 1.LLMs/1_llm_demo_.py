@@ -8,3 +8,4 @@ llm=OpenAI(model="gpt-3.5-turbo-instruct")
 response=llm.invoke("What is the capital of France?")
 print(response)
 
+# paid api
