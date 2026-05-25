@@ -20,3 +20,12 @@ class my_teacher(BaseModel):
 teacher1={'name': 'Mr. Smith', 'subject': 'Math'}
 teacher_instance = my_teacher(**teacher1)
 print(teacher_instance.years_of_experience) # this will print 5, since we did not provide a value for years_of_experience when creating the teacher_instance.
+
+# optional fields
+from typing import Optional
+class my_course(BaseModel):
+    name: str
+    description: Optional[str] = None # we can use Optional to indicate that the description field is optional. If it is not provided, it will default to None.
+course1={'name': 'Introduction to Python'}
+course_instance = my_course(**course1)
+print(course_instance.description) # this will print None, since we did not provide a value for description when creating the course_instance.
