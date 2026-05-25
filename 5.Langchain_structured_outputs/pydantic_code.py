@@ -29,3 +29,8 @@ class my_course(BaseModel):
 course1={'name': 'Introduction to Python'}
 course_instance = my_course(**course1)
 print(course_instance.description) # this will print None, since we did not provide a value for description when creating the course_instance.
+
+# pydantic is coerce which means it will try to convert the input data to the specified types. For example, if we provide a string for the age field in my_student, pydantic will attempt to convert it to an integer.
+
+# we can get into json or in dict format
+print(student1.model_dump_json()) # this will print the student1 instance in JSON format.  
