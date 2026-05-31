@@ -1,0 +1,61 @@
+In LangChain, a chain is the core concept used to combine multiple steps (like prompts, models, and tools) into a single workflow.
+
+What is a chain?
+
+A chain is a sequence of components where the output of one step becomes the input of the next. It helps you build structured pipelines instead of calling an LLM manually each time.
+
+Think of it like:
+
+Input → Prompt → LLM → Output → (optional next step)
+Simple Example
+
+Here’s a basic chain using a prompt + model:
+
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+
+prompt = PromptTemplate.from_template("Translate this to French: {text}")
+model = ChatOpenAI()
+
+chain = prompt | model
+
+result = chain.invoke({"text": "Hello world"})
+print(result)
+
+👉 The | operator is used to pipe components together, forming a chain.
+
+Types of Chains
+1. LLM Chain (basic)
+Prompt → LLM → Output
+Used for simple tasks like text generation
+2. Sequential Chains
+Multiple steps executed in order
+Example:
+User input → Summarize → Translate → Format
+3. Router Chains
+Decide dynamically which chain to use based on input
+4. Retrieval Chains (RAG)
+Combine LLM with a knowledge base
+Example:
+Question → Retrieve documents → LLM answers using context
+5. Tool / Agent Chains
+LLM decides which tool to call (APIs, calculators, etc.)
+Modern LangChain (LCEL)
+
+LangChain now uses LangChain Expression Language (LCEL), where chains are built like this:
+
+chain = prompt | model | some_parser
+
+This makes chains:
+
+composable
+reusable
+easy to debug
+Why Chains Matter
+
+Chains let you:
+
+Break complex tasks into steps
+Reuse components
+Build production-ready LLM apps
+Add memory, tools, and logic
