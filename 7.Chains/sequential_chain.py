@@ -28,3 +28,5 @@ result = chain.invoke({
     "topic": "Python programming language"
 })
 print(result)
+
+chain.get_graph().print_ascii() # to visualize the chain structure
