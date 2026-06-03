@@ -1,0 +1,149 @@
+In LangChain, a Runnable is the standard interface for anything that can take an input, do some work, and return an output.
+Think of it like this:
+Input → Runnable → Output
+Examples of runnables:
+
+
+LLMs (ChatGroq, ChatOpenAI, Gemini)
+
+
+Prompt templates
+
+
+Output parsers
+
+
+Chains
+
+
+Custom functions
+
+
+
+Why do Runnables Exist?
+Before runnables, LangChain had many different objects:
+prompt.format()llm.predict()parser.parse()chain.run()
+Each component had a different method.
+This created problems:
+
+
+Hard to combine components
+
+
+Different syntax everywhere
+
+
+Difficult to create complex workflows
+
+
+So LangChain introduced the Runnable Interface.
+Now every component follows the same pattern:
+.invoke().batch().stream()
+This means all components can be connected together easily.
+
+Example Without Runnables
+Imagine:
+prompt = PromptTemplate.from_template(    "Tell me about {topic}")formatted_prompt = prompt.format(topic="AI")response = llm.invoke(formatted_prompt)result = parser.parse(response.content)print(result)
+Many steps.
+
+Example With Runnables
+chain = prompt | llm | parserresult = chain.invoke({"topic": "AI"})print(result)
+Much cleaner.
+
+Runnable Methods
+1. invoke()
+Runs once.
+result = chain.invoke({"topic": "AI"})
+Input:
+{"topic":"AI"}
+Output:
+"AI is..."
+
+2. batch()
+Runs multiple inputs simultaneously.
+results = chain.batch([    {"topic":"AI"},    {"topic":"ML"},    {"topic":"Python"}])
+Output:
+[  "AI...",  "ML...",  "Python..."]
+Useful for processing many requests faster.
+
+3. stream()
+Returns output token by token.
+for chunk in chain.stream({"topic":"AI"}):    print(chunk, end="")
+Output:
+Artificial Intelligence is ...
+Useful for chat applications.
+
+Everything is a Runnable
+Prompt
+prompt = PromptTemplate.from_template(    "Tell me about {topic}")
+Runnable:
+prompt.invoke({"topic":"AI"})
+Output:
+Tell me about AI
+
+Model
+llm = ChatGroq(    model="llama-3.3-70b-versatile")
+Runnable:
+llm.invoke("What is AI?")
+
+Parser
+parser = StrOutputParser()
+Runnable:
+parser.invoke(ai_message)
+
+RunnableSequence
+When you use:
+chain = prompt | llm | parser
+LangChain automatically creates a:
+RunnableSequence
+Flow:
+Input  ↓Prompt  ↓LLM  ↓Parser  ↓Output
+
+RunnableParallel
+Runs multiple tasks at the same time.
+from langchain_core.runnables import RunnableParallelparallel = RunnableParallel(    summary=summary_chain,    keywords=keyword_chain)result = parallel.invoke(    {"text":"Artificial Intelligence"})
+Output:
+{  "summary":"AI is...",  "keywords":["AI","ML","LLM"]}
+Both chains execute simultaneously.
+
+RunnableLambda
+Turns a Python function into a runnable.
+from langchain_core.runnables import RunnableLambdadef square(x):    return x * xsquare_runnable = RunnableLambda(square)print(square_runnable.invoke(5))
+Output:
+25
+
+Why Runnables Are Important
+They provide:
+
+
+One standard interface
+.invoke().batch().stream()
+
+
+Easy chaining
+prompt | llm | parser
+
+
+Parallel execution
+RunnableParallel
+
+
+Streaming support
+.stream()
+
+
+Reusable workflows
+chain.invoke()
+
+
+Foundation of LCEL (LangChain Expression Language)
+
+
+
+Real-world analogy
+Imagine a factory:
+Raw Material    ↓Machine 1 (Prompt)    ↓Machine 2 (LLM)    ↓Machine 3 (Parser)    ↓Finished Product
+Each machine follows the same input/output standard.
+A Runnable is that standard machine interface, which is why LangChain can connect components together using:
+prompt | llm | parser
+Without runnables, every component would have different methods and complex integration logic.
