@@ -1,0 +1,7 @@
+rag is a technique that combines the information retrieveal with the language genration , where model retuireves the relvent documents from a knowlegde base and then uses them as a context to genrate the accurate and grounded respones 
+
+
+benefits
+* use of up to date data 
+* better privacy 
+* no limit of document size
