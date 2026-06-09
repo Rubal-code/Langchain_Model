@@ -5,3 +5,23 @@ benefits
 * use of up to date data 
 * better privacy 
 * no limit of document size
+
+components of rag:
+* document loaders
+* text splitters
+* vector databases
+* Retrievers
+
+# document loaders    
+  Document loaders are the components in langchain used to load_data from varius sources into a standardized format (usually as document objects ) which can be used for chunking , embedding , retrieval , genration
+  eg--: Document(
+    page_content="the actual text content",
+    metadata={"source":"filename.pdf",....}
+  )
+
+types :--
+
+* textloader
+* pypdfloadar
+* webbaseloader
+* csvloader
