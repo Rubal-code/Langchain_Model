@@ -21,7 +21,15 @@ components of rag:
 
 types :--
 
-* textloader
-* pypdfloadar
-* webbaseloader
-* csvloader
+**** textloader --> textloader is the simple and commonly used document loader in langchain that reads plain text (.txt) files and converts them into langchain document loaders 
+
+use case :
+ideal for loading chat logs , scraped text , transcripts , code snippets or any plain text data into langchain pipeline
+
+limitation : 
+works only with .txt files
+
+
+**** pypdfloadar
+**** webbaseloader
+**** csvloader
