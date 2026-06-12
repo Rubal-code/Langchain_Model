@@ -30,6 +30,7 @@ limitation :
 works only with .txt files
 
 
-**** pypdfloadar
+**** pypdfloadar--> it allows you to fetch pdf 
+****directoryLoader--> it allows you to fetch multiple documents 
 **** webbaseloader
 **** csvloader
